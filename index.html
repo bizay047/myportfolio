@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bijay Kumar Yadav | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="#" class="logo">Portfolio</a>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="theme-toggle" id="themeToggle">
+      <i class="fas fa-moon"></i>
+    </button>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="glitch">Hello, I'm <span style="color: var(--secondary-color)">Bijay Kumar Yadav</span></h1>
+        <p>I am an aspiring civil engineer and frontend developer with a passion for clean, responsive design.</p>
+        <div>
+          <a href="#projects" class="btn">View Projects</a>
+          <a href="#contact" class="btn btn-outline">Contact Me</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="section-title">
+      <h2>About Me</h2>
+      <p>Learn more about who I am and my background</p>
+    </div>
+    <div class="about-container">
+      <div class="about-image">
+        <img src="vizay.html" alt="Profile Image" />
+      </div>
+      <div class="about-text">
+        <h3>Student & Developer</h3>
+        <p>I completed my 12th from Bhutan Devi Ma Vi in 2023, and I hold a TSLC in Civil Engineering as an Overseer.</p>
+        <p>Currently learning frontend web development, exploring UI/UX, and working on personal projects to strengthen my skills.</p>
+        <p> Currently I am pursing my Btech program from kiit university(2023-2027)</p>
+        <a href="#" class="btn" style="margin-top: 1rem;">Download CV</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="skills">
+    <div class="section-title">
+      <h2>My Skills</h2>
+      <p>Technologies and tools I am familiar with</p>
+    </div>
+    <div class="skills-container">
+      <div class="skills-grid">
+        <div class="skill-card">
+          <i class="fab fa-html5"></i>
+          <h3>HTML5</h3>
+        </div>
+        <div class="skill-card">
+          <i class="fab fa-css3-alt"></i>
+          <h3>CSS3</h3>
+        </div>
+        <div class="skill-card">
+          <i class="fab fa-js"></i>
+          <h3>JavaScript</h3>
+        </div>
+        <div class="skill-card">
+          <i class="fas fa-drafting-compass"></i>
+          <h3>Civil Engineering Basics</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects">
+    <div class="section-title">
+      <h2>My Projects</h2>
+      <p>Some of the personal and practice projects I’ve worked on</p>
+    </div>
+    <div class="projects-container">
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-image">
+            <img src="https://placehold.co/600x400" alt="Project 1" />
+          </div>
+          <div class="project-info">
+            <h3>Portfolio Website</h3>
+            <p>My personal portfolio created using HTML, CSS, and JavaScript.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="section-title">
+      <h2>Get In Touch</h2>
+      <p>Contact me for freelance or collaborative opportunities</p>
+    </div>
+    <div class="contact-container">
+      <div class="contact-info">
+        <h3>Contact Information</h3>
+        <p>Email: bijaykr047@gmail.com</p>
+        <p>Phone: 6371791118</p>
+      </div>
+      <div class="contact-form">
+        <form id="contact-form" action="https://formspree.io/f/xzzvzyzy" method="POST">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="_replyto" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" class="form-control" required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Send Message</button>
+          <p id="form-status" class="form-status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Bijay Kumar Yadav. All rights reserved.</p>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
