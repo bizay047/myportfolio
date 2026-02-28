@@ -1,0 +1,202 @@
+/* Color Variables for Light & Dark Mode */
+:root {
+    --bg-color: #f9f7f1;
+    --bg-alt: #f9f7f1;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --primary-color: #3b82f6;
+    --primary-hover: #2563eb;
+    --card-bg: #ffffff;
+    --card-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 10px 15px rgba(0,0,0,0.03);
+    --border-radius: 12px; /* Slightly sharper corners for modern look */
+    --transition: all 0.3s ease;
+}
+
+body.dark-mode {
+    --bg-color: #0f172a;
+    --bg-alt: #1e293b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --primary-color: #60a5fa;
+    --primary-hover: #3b82f6;
+    --card-bg: #1e293b; /* This gives the dark blue card look from your image */
+    --card-shadow: 0 4px 6px rgba(0,0,0,0.3), 0 10px 15px rgba(0,0,0,0.2);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+body { background-color: var(--bg-color); color: var(--text-main); transition: var(--transition); line-height: 1.6; }
+
+h1, h2, h3 { color: var(--text-main); }
+.section-title { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; }
+.section-title span { color: var(--primary-color); }
+
+/* Navigation */
+nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
+.nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; }
+.logo { font-weight: 700; font-size: 1.5rem; }
+.logo span { color: var(--primary-color); }
+.nav-links { display: flex; list-style: none; gap: 2rem; }
+.nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; transition: var(--transition); }
+.nav-links a:hover { color: var(--primary-color); }
+.theme-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); }
+
+/* --- FULL PAGE BACKGROUND FIX --- */
+#particle-canvas { 
+    position: fixed; /* Keeps dots on screen when scrolling */
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh; 
+    z-index: -1;  /* Pushes dots BEHIND everything else */
+    pointer-events: none; /* Makes sure they don't block your clicks */
+}
+
+/* Hero Section */
+#hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+.hero-content { position: relative; z-index: 2; max-width: 800px; padding: 0 2rem; }
+.name { font-size: 4rem; font-weight: 700; margin: 0.5rem 0; }
+.typing-text { font-size: 1.8rem; color: var(--primary-color); height: 40px; margin-bottom: 1rem;}
+.cursor { animation: blink 1s infinite; }
+@keyframes blink { 0%, 100% {opacity: 1;} 50% {opacity: 0;} }
+.summary { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem; }
+
+/* Buttons */
+.btn { padding: 10px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: var(--transition); display: inline-block; cursor: pointer; border: 2px solid transparent; }
+.primary-btn { background-color: var(--primary-color); color: #fff; }
+.primary-btn:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
+.secondary-btn { border-color: var(--primary-color); color: var(--primary-color); }
+.secondary-btn:hover { background-color: var(--primary-color); color: #fff; transform: translateY(-2px); }
+.hero-buttons { display: flex; gap: 1rem; justify-content: center; }
+
+/* Layout & Cards */
+.section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+/* Made backgrounds transparent so particles show through */
+.bg-alt { background-color: transparent; max-width: 100%; padding-left: 10%; padding-right: 10%;}
+.card { background-color: var(--card-bg); padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--card-shadow); transition: var(--transition); }
+.card:hover { transform: translateY(-5px); box-shadow: 0 15px 25px rgba(0,0,0,0.1); }
+
+/* --- NEW About Section --- */
+.about-container { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 4rem; 
+    flex-wrap: wrap; /* Allows it to stack on mobile */
+}
+.about-image img { 
+    width: 100%; 
+    max-width: 320px; 
+    border-radius: var(--border-radius); 
+    box-shadow: var(--card-shadow); 
+    object-fit: cover;
+    border: 4px solid var(--card-bg);
+}
+.about-text { 
+    max-width: 600px; 
+}
+.about-text h3 { 
+    font-size: 1.5rem; 
+    color: var(--primary-color); 
+    margin-bottom: 1rem; 
+}
+.about-text p { 
+    color: var(--text-muted); 
+    margin-bottom: 0.8rem; 
+    font-size: 1.05rem;
+}
+
+/* Skills Grid */
+.skill-category { margin-bottom: 3rem; }
+.category-title { font-size: 1.3rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; font-weight: 600;}
+.skill-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+.mini-skill-card {
+    background-color: var(--card-bg);
+    padding: 2rem 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    transition: var(--transition);
+}
+.mini-skill-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); border-bottom: 3px solid var(--primary-color); }
+.mini-skill-card i { 
+    font-size: 2.5rem; 
+    color: var(--primary-color); 
+    background: rgba(59, 130, 246, 0.1); /* Soft transparent blue background */
+    height: 70px; 
+    width: 70px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 50%; 
+    border: 1px solid rgba(59, 130, 246, 0.3); /* Subtle blue border */
+    margin-bottom: 0.5rem;
+    transition: var(--transition);
+}
+
+/* Bonus: Makes the icon turn solid blue when you hover over the card! */
+.mini-skill-card:hover i {
+    background: var(--primary-color);
+    color: #ffffff;
+    transform: scale(1.1); /* Slight pop effect */
+}
+.mini-skill-card span { font-weight: 600; font-size: 1.1rem; }
+
+/* Projects Grid */
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+.project-card { cursor: pointer; text-align: center;}
+.project-icon { 
+    background: rgba(59, 130, 246, 0.1); /* Soft transparent blue */
+    height: 60px; 
+    width: 60px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 1.5rem; 
+    color: var(--primary-color); 
+    margin: 0 auto 1rem auto; 
+    border: 1px solid rgba(59, 130, 246, 0.3); /* Subtle blue border */
+}
+.project-card h3 { margin-bottom: 0.5rem; }
+.project-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+.learn-more { color: var(--primary-color); font-weight: 600; font-size: 0.9rem; }
+
+/* Contact Section */
+.contact-container { display: grid; grid-template-columns: 1fr 1.5fr; gap: 2rem; }
+.contact-info h3 { margin-bottom: 1.5rem; color: var(--primary-color); }
+.contact-info p { margin-bottom: 1rem; color: var(--text-muted); display: flex; align-items: center; gap: 10px; font-size: 1.1rem;}
+.contact-info p i { color: var(--primary-color); font-size: 1.2rem; width: 20px;}
+.form-group { margin-bottom: 1.5rem; text-align: left; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-main); }
+.form-control { width: 100%; padding: 12px; border: 1px solid var(--text-muted); border-radius: 8px; background: var(--bg-color); color: var(--text-main); font-family: inherit; transition: border 0.3s; }
+.form-control:focus { outline: none; border-color: var(--primary-color); }
+.btn-submit { width: 100%; margin-top: 1rem; }
+
+/* --- Footer --- */
+/* Made background transparent so particles show, added border on top */
+footer { text-align: center; padding: 3rem 2rem; background-color: transparent; border-top: 1px solid var(--text-muted); }
+footer p { color: var(--text-muted); margin-bottom: 1.5rem; }
+footer .social-links { display: flex; justify-content: center; gap: 1.5rem; }
+footer .social-links a { color: var(--text-muted); font-size: 1.5rem; transition: var(--transition); background: var(--card-bg); height: 45px; width: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: var(--card-shadow);}
+footer .social-links a:hover { color: var(--primary-color); transform: translateY(-3px); }
+
+/* Modal */
+.modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
+.modal-content { max-width: 600px; width: 90%; position: relative; animation: modalFadeIn 0.3s ease; }
+.close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
+.modal-buttons { display: flex; gap: 1rem; margin-top: 2rem; }
+@keyframes modalFadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .name { font-size: 2.5rem; }
+    .hero-buttons { flex-direction: column; }
+    .contact-container { grid-template-columns: 1fr; }
+    .about-container { flex-direction: column; text-align: center; }
+}
