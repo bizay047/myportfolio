@@ -193,10 +193,63 @@ footer .social-links a:hover { color: var(--primary-color); transform: translate
 @keyframes modalFadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
 /* Mobile Responsive */
+/* --- MOBILE RESPONSIVE LAYOUT FIXES --- */
 @media (max-width: 768px) {
-    .nav-links { display: none; }
-    .name { font-size: 2.5rem; }
-    .hero-buttons { flex-direction: column; }
-    .contact-container { grid-template-columns: 1fr; }
-    .about-container { flex-direction: column; text-align: center; }
+    /* 1. Fix Navigation (Stacks nicely instead of disappearing) */
+    .nav-container { 
+        flex-direction: column; 
+        padding: 1rem; 
+        gap: 1rem; 
+    }
+    .nav-links { 
+        display: flex; 
+        flex-wrap: wrap; 
+        justify-content: center; 
+        gap: 1rem; 
+    }
+    .nav-links a { 
+        font-size: 0.9rem; 
+    }
+    .theme-btn { 
+        position: absolute; 
+        top: 1rem; 
+        right: 1.5rem; 
+    }
+
+    /* 2. Fix Hero Section Text & Buttons */
+    .name { font-size: 2.2rem; margin-top: 1rem; }
+    .typing-text { font-size: 1.2rem; height: auto; min-height: 40px; }
+    .summary { font-size: 0.95rem; padding: 0 0.5rem; }
+    .hero-buttons { 
+        flex-direction: column; 
+        width: 100%; 
+        max-width: 300px; 
+        margin: 0 auto; 
+    }
+    .btn { text-align: center; }
+
+    /* 3. Fix Section Padding (Removes the squished sides) */
+    .section { padding: 4rem 1.5rem; }
+    .bg-alt { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+
+    /* 4. Fix About Section */
+    .about-container { flex-direction: column; text-align: center; gap: 2rem; }
+    .about-image img { max-width: 250px; }
+
+    /* 5. Fix Grids (Forces cards to stack perfectly on small screens) */
+    .skill-cards-grid { 
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+        gap: 1rem; 
+    }
+    .mini-skill-card { padding: 1.5rem 0.5rem; }
+    .projects-grid { grid-template-columns: 1fr; } 
+
+    /* 6. Fix Contact & Footer */
+    .contact-container { grid-template-columns: 1fr; gap: 2rem; }
+    footer { padding: 2rem 1rem; }
+}
+
+/* Fix for extremely small phones (like iPhone SE) */
+@media (max-width: 400px) {
+    .skill-cards-grid { grid-template-columns: 1fr; }
 }
