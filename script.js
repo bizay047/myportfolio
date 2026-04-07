@@ -1,4 +1,13 @@
-document.addEventListener("DOMContentLoaded", () => {
+// --- 0. Force Page to Top on Refresh ---
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
+
+    // ...
+document.addEventListener("DOMContentLoaded", () => {   
+        
     
     // --- 1. Dark/Light Mode Toggle ---
     const themeToggle = document.getElementById('theme-toggle');
