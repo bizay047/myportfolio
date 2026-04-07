@@ -1,4 +1,5 @@
 /* Color Variables for Light & Dark Mode */
+/* Color Variables for Light & Dark Mode */
 :root {
     --bg-color: #f9f7f1;
     --bg-alt: #f9f7f1;
@@ -33,9 +34,28 @@ h1, h2, h3 { color: var(--text-main); }
 
 /* Navigation */
 nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
-.nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; }
-.logo { font-weight: 700; font-size: 1.5rem; }
-.logo span { color: var(--primary-color); }
+.nav-container { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    max-width: 1400px; /* Widened from 1200px */
+    margin: 0 auto; 
+    padding: 1rem 3rem; /* Pushes the logo and moon icon slightly inward */
+}
+/* --- Logo Code Brackets --- */
+
+.logo {
+    display: flex;
+    align-items: center; /* Keeps everything perfectly centered in a row */
+}
+
+.logo .code-bracket { 
+    color: var(--primary-color); 
+    font-size: 1.9rem; /* Bumps up the size of the brackets to match the text */
+    font-weight: 700; 
+    line-height: 1; /* Prevents the bigger brackets from messing up the navbar height */
+    margin-top: -3px; /* Slightly nudges the brackets up to perfectly align with the B */
+}
 .nav-links { display: flex; list-style: none; gap: 2rem; }
 .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; transition: var(--transition); }
 .nav-links a:hover { color: var(--primary-color); }
@@ -43,23 +63,81 @@ nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); bo
 
 /* --- FULL PAGE BACKGROUND FIX --- */
 #particle-canvas { 
-    position: fixed; /* Keeps dots on screen when scrolling */
+    position: fixed; 
     top: 0; 
     left: 0; 
     width: 100vw; 
     height: 100vh; 
-    z-index: -1;  /* Pushes dots BEHIND everything else */
-    pointer-events: none; /* Makes sure they don't block your clicks */
+    z-index: -1;  
+    pointer-events: none; 
 }
 
-/* Hero Section */
-#hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
-.hero-content { position: relative; z-index: 2; max-width: 800px; padding: 0 2rem; }
-.name { font-size: 4rem; font-weight: 700; margin: 0.5rem 0; }
-.typing-text { font-size: 1.8rem; color: var(--primary-color); height: 40px; margin-bottom: 1rem;}
-.cursor { animation: blink 1s infinite; }
-@keyframes blink { 0%, 100% {opacity: 1;} 50% {opacity: 0;} }
-.summary { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem; }
+/* --- Split Hero Section Layout --- */
+#hero { 
+    position: relative; 
+    min-height: 100vh; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    overflow: hidden; 
+    padding-top: 80px; 
+}
+
+
+.split-hero { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 8rem; /* Pushes the text and image further apart */
+    max-width: 1400px; /* Widened from 1200px to match the navbar */
+    width: 100%; 
+    padding: 0 3rem; 
+    position: relative; 
+    z-index: 2; 
+}
+
+/* Left Side Formatting */
+.hero-text-side { 
+    flex: 1.2; 
+    text-align: left; 
+}
+
+.hero-text-side .greeting { text-align: center; }
+.hero-text-side .name { font-size: 3.5rem; font-weight: 700; margin: 0.5rem 0; line-height: 1.1; text-align: center;}
+.hero-text-side .typing-text { font-size: 1.8rem; color: var(--primary-color); height: 40px; margin-bottom: 1rem; text-align: center; }
+.hero-text-side .summary { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 550px;text-align: center; }
+.hero-text-side .hero-buttons { display: flex; gap: 1rem; justify-content: flex-start;align-items: center; }
+
+/* Right Side Formatting */
+.hero-visual-side { 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 2rem; 
+}
+
+/* --- UPDATED Hero Profile Image (Rectangle with Glow) --- */
+.hero-profile-img { 
+    width: auto; 
+    height: auto;
+    max-width: 320px; 
+     
+    object-fit: cover; 
+    border-radius: var(--border-radius); /* Changed from 50% for sharp corners */
+    border: 1px solid var(--card-bg); 
+    box-shadow: 0 0 25px rgba(59, 130, 246, 0.4); 
+    transition: var(--transition);
+}
+
+
+
+.hero-action-buttons { 
+    display: flex; 
+    gap: 1rem; 
+    width: 100%;
+    justify-content: center;
+}
 
 /* Buttons */
 .btn { padding: 10px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: var(--transition); display: inline-block; cursor: pointer; border: 2px solid transparent; }
@@ -67,22 +145,20 @@ nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); bo
 .primary-btn:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
 .secondary-btn { border-color: var(--primary-color); color: var(--primary-color); }
 .secondary-btn:hover { background-color: var(--primary-color); color: #fff; transform: translateY(-2px); }
-.hero-buttons { display: flex; gap: 1rem; justify-content: center; }
 
 /* Layout & Cards */
 .section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
-/* Made backgrounds transparent so particles show through */
 .bg-alt { background-color: transparent; max-width: 100%; padding-left: 10%; padding-right: 10%;}
 .card { background-color: var(--card-bg); padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--card-shadow); transition: var(--transition); }
 .card:hover { transform: translateY(-5px); box-shadow: 0 15px 25px rgba(0,0,0,0.1); }
 
-/* --- NEW About Section --- */
+/* About Section */
 .about-container { 
     display: flex; 
     align-items: center; 
     justify-content: center; 
     gap: 4rem; 
-    flex-wrap: wrap; /* Allows it to stack on mobile */
+    flex-wrap: wrap; 
 }
 .about-image img { 
     width: 100%; 
@@ -92,23 +168,14 @@ nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); bo
     object-fit: cover;
     border: 4px solid var(--card-bg);
 }
-.about-text { 
-    max-width: 600px; 
-}
-.about-text h3 { 
-    font-size: 1.5rem; 
-    color: var(--primary-color); 
-    margin-bottom: 1rem; 
-}
-.about-text p { 
-    color: var(--text-muted); 
-    margin-bottom: 0.8rem; 
-    font-size: 1.05rem;
-}
+.about-text { max-width: 600px; }
+.about-text h3 { font-size: 1.5rem; color: var(--primary-color); margin-bottom: 1rem; }
+.about-text p { color: var(--text-muted); margin-bottom: 0.8rem; font-size: 1.05rem; }
 
 /* Skills Grid */
 .skill-category { margin-bottom: 3rem; }
-/* --- Centered Category Titles with Pill Background & Lines --- */
+
+/* Centered Category Titles with Pill Background & Lines */
 .category-title { 
     display: flex; 
     align-items: center; 
@@ -117,7 +184,6 @@ nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); bo
     width: 100%;
 }
 
-/* Creates the glowing lines on both sides */
 .category-title::before,
 .category-title::after {
     content: "";
@@ -128,21 +194,32 @@ nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); bo
     border-radius: 2px;
 }
 
-/* Styles the text as a pill button */
 .category-title span {
-    background: rgba(59, 130, 246, 0.1); /* Soft transparent blue */
+    background: rgba(59, 130, 246, 0.1); 
     color: var(--primary-color);
     padding: 0.6rem 1.8rem;
-    border-radius: 30px; /* Gives it the perfect rounded pill shape */
+    border-radius: 30px; 
     font-size: 1.2rem;
     font-weight: 600;
-    margin: 0 1rem; /* Creates space between the pill and the lines */
-    border: 1px solid rgba(59, 130, 246, 0.2); /* Subtle matching border */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Slight shadow to make it pop */
+    margin: 0 1rem; 
+    border: 1px solid rgba(59, 130, 246, 0.2); 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
 }
-.skill-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+
+/* --- Updated Skills Grid (Perfectly Centered, adds to the right) --- */
+.skill-cards-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, 150px); /* Locks every card to exactly 150px */
+    justify-content: center; /* Centers the entire block of cards on the screen */
+    gap: 1.5rem; 
+    max-width: 900px; 
+    margin: 0 auto; 
+}
+
 .mini-skill-card {
     background-color: var(--card-bg);
+    width: 100%; /* Fills the 150px grid space perfectly */
+
     padding: 2rem 1rem;
     border-radius: var(--border-radius);
     box-shadow: var(--card-shadow);
@@ -154,38 +231,37 @@ nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); bo
     transition: var(--transition);
 }
 .mini-skill-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); border-bottom: 3px solid var(--primary-color); }
+/* --- Icons inside the mini-skill-cards --- */
 .mini-skill-card i { 
-    font-size: 2.5rem; 
-    color: var(--primary-color); 
-    background: rgba(59, 130, 246, 0.1); /* Soft transparent blue background */
-    height: 70px; 
-    width: 70px; 
+    font-size: 3rem; 
+    /* Removed the forced blue color so the brand colors show! */
+    background: var(--bg-alt); /* Gives the circle a soft, neutral background */
+    height: 80px; 
+    width: 80px; 
     display: flex; 
     align-items: center; 
     justify-content: center; 
-    border-radius: 50%; 
-    border: 1px solid rgba(59, 130, 246, 0.3); /* Subtle blue border */
+    border-radius: 49%; 
+    border: 1px solid rgba(100, 116, 139, 0.2); /* Soft neutral border */
     margin-bottom: 0.5rem;
     transition: var(--transition);
 }
 
-/* Bonus: Makes the icon turn solid blue when you hover over the card! */
+/* Hover effect for the new colored icons */
 .mini-skill-card:hover i {
-    background: var(--primary-color);
-    color: #ffffff;
-    transform: scale(1.1); /* Slight pop effect */
+    background: var(--card-bg); /* Keeps background clean */
+    transform: scale(1.15); /* Makes the logo pop up instead of turning solid blue */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Adds a 3D shadow effect */
 }
 .mini-skill-card span { font-weight: 600; font-size: 1.1rem; }
 
-/* --- NEW Education Timeline --- */
+/* Education Timeline */
 .timeline {
     position: relative;
     max-width: 800px;
     margin: 0 auto;
     padding: 2rem 0;
 }
-
-/* The vertical glowing line */
 .timeline::before {
     content: '';
     position: absolute;
@@ -196,14 +272,11 @@ nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); bo
     background: rgba(59, 130, 246, 0.2);
     border-radius: 2px;
 }
-
 .timeline-item {
     position: relative;
     margin-bottom: 3rem;
     padding-left: 60px;
 }
-
-/* The glowing dots on the line */
 .timeline-dot {
     position: absolute;
     top: 20px;
@@ -216,16 +289,11 @@ nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); bo
     border: 4px solid var(--bg-color);
     transition: var(--transition);
 }
-
 .timeline-item:hover .timeline-dot {
     transform: scale(1.3);
     box-shadow: 0 0 20px var(--primary-color);
 }
-
-.timeline-content {
-    position: relative;
-}
-
+.timeline-content { position: relative; }
 .timeline-date {
     display: inline-block;
     padding: 0.3rem 0.8rem;
@@ -236,79 +304,67 @@ nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); bo
     font-weight: 600;
     margin-bottom: 0.5rem;
 }
+.timeline-content h3 { margin-bottom: 0.2rem; font-size: 1.3rem; }
+.timeline-content h4 { color: var(--text-muted); font-weight: 400; margin-bottom: 1rem; font-size: 1rem; }
+.timeline-grade { display: block; margin-top: 1rem; font-weight: 700; color: var(--text-main); }
 
-.timeline-content h3 {
-    margin-bottom: 0.2rem;
-    font-size: 1.3rem;
-}
-
-.timeline-content h4 {
-    color: var(--text-muted);
-    font-weight: 400;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-}
-
-.timeline-grade {
-    display: block;
-    margin-top: 1rem;
-    font-weight: 700;
-    color: var(--text-main);
-}
-/* --- Education Logos & Layout --- */
-.edu-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 1.2rem;
-    margin-bottom: 1rem;
-}
-
-.edu-logo1 {
-    width: 90px;
-    height: auto;
-    background-color: #ffffff; /* Keeps logo visible in dark mode */
-    padding: 5px;
-    border-radius: 8px;
-    border: 1px solid var(--text-muted);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
+/* Education Logos */
+.edu-header { display: flex; align-items: flex-start; gap: 1.2rem; margin-bottom: 1rem; }
 .edu-logo {
     width: 90px;
     height: auto;
-    background-color: #ffffff; /* Keeps logo visible in dark mode */
+    background-color: #ffffff; 
     padding: 5px;
     border-radius: 8px;
     border: 1px solid var(--text-muted);
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+.edu-text h4 a { color: var(--text-muted); text-decoration: none; transition: var(--transition); }
+.edu-text h4 a:hover { color: var(--primary-color); }
+.edu-text h4 a i { font-size: 0.75rem; margin-left: 4px; }
 
-.edu-text h4 a {
-    color: var(--text-muted);
-    text-decoration: none;
+/* Projects Grid */
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;  }
+/* --- Major Projects Layout --- */
+.major-projects-grid {
+    max-width: 280px; /* Stops a single card from stretching across the whole screen */
+    margin: 0 auto; /* Centers the grid */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Makes the cards wider squares */
+   
+}
+
+/* Make the Major Project Logo Big */
+.project-icon.major-logo {
+    width: 130px; /* Much bigger logo! */
+    height: 130px;
+    margin: 0 auto 1.5rem auto;
+    border-radius: 15px;
+    border: 1px solid var(--text-muted);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     transition: var(--transition);
 }
 
-.edu-text h4 a:hover {
-    color: var(--primary-color);
+.project-icon.major-logo a {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: #f09433;
 }
 
-.edu-text h4 a i {
-    font-size: 0.75rem;
-    margin-left: 4px;
+.project-icon.major-logo img {
+    width: 160px; /* Scales the image up to fill the larger logo container */
+    height: 160px;
+    padding: 5px;
+    border-radius: 20px;
+    object-fit: contain;
+    transform: scale(-1.3);
+    transition: var(--transition);
 }
 
-/* Mobile Tweak for Education Logos */
-@media (max-width: 600px) {
-    .edu-header {
-        flex-direction: column;
-    }
-}
-/* Projects Grid */
-.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+
 .project-card { cursor: pointer; text-align: center;}
 .project-icon { 
-    background: rgba(59, 130, 246, 0.1); /* Soft transparent blue */
+    background: rgba(59, 130, 246, 0.1); 
     height: 60px; 
     width: 60px; 
     border-radius: 50%; 
@@ -318,11 +374,102 @@ nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); bo
     font-size: 1.5rem; 
     color: var(--primary-color); 
     margin: 0 auto 1rem auto; 
-    border: 1px solid rgba(59, 130, 246, 0.3); /* Subtle blue border */
+    border: 1px solid rgba(59, 130, 246, 0.3); 
+}
+/* Makes custom image logos fit perfectly in the project cards */
+.project-icon.custom-logo {
+    background: transparent; /* Removes the blue tint so your logo colors pop */
+    border: none; /* Removes the border for a cleaner look */
+}
+
+.project-icon.custom-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensures the whole logo fits without getting cut off */
+    transform: scale(1.3); /* Makes it slightly larger to fill the space nicely */
 }
 .project-card h3 { margin-bottom: 0.5rem; }
 .project-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
 .learn-more { color: var(--primary-color); font-weight: 600; font-size: 0.9rem; }
+
+/* --- NEW: Currently Learning Section --- */
+
+.learning-container {
+    display: flex;
+    flex-direction: column; /* Stacks the cards as horizontal rows */
+    gap: 2rem;
+    max-width: 950px; /* Keeps the text lines from getting too wide to read */
+    margin: 0 auto; /* Centers the whole container */
+}
+
+.learning-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    text-align: left;
+}
+
+.learning-card h3 { 
+    color: var(--primary-color); 
+    font-size: 1.4rem; 
+    line-height: 1.3;
+}
+
+.learning-card h4 a { 
+    color: var(--text-main); 
+    text-decoration: none; 
+    font-weight: 600; 
+    transition: var(--transition);
+}
+
+.learning-card h4 a:hover { 
+    color: var(--primary-color); 
+}
+
+.learning-card .timeline-date { 
+    margin-bottom: 0.5rem; 
+    display: inline-block;
+}
+
+/* --- NEW: Certifications Section --- */
+/* --- Updated Certifications Grid & Pills --- */
+.certifications-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+.certification-card {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* Flexbox to keep Titles and Coursera/Dates on the same line */
+.card-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Allows it to stack nicely on mobile */
+    gap: 1rem;
+}
+
+/* The uniform Pill Background for Coursera and Dates */
+.pill-badge {
+    background: rgba(59, 130, 246, 0.1); 
+    color: var(--primary-color);
+    padding: 0.4rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap; /* Prevents the text from wrapping */
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
 
 /* Contact Section */
 .contact-container { display: grid; grid-template-columns: 1fr 1.5fr; gap: 2rem; }
@@ -335,14 +482,37 @@ nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); bo
 .form-control:focus { outline: none; border-color: var(--primary-color); }
 .btn-submit { width: 100%; margin-top: 1rem; }
 
-/* --- Footer --- */
-/* Made background transparent so particles show, added border on top */
+/* Footer */
 footer { text-align: center; padding: 3rem 2rem; background-color: transparent; border-top: 1px solid var(--text-muted); }
 footer p { color: var(--text-muted); margin-bottom: 1.5rem; }
 footer .social-links { display: flex; justify-content: center; gap: 1.5rem; }
-footer .social-links a { color: var(--text-muted); font-size: 1.5rem; transition: var(--transition); background: var(--card-bg); height: 45px; width: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: var(--card-shadow);}
-footer .social-links a:hover { color: var(--primary-color); transform: translateY(-3px); }
 
+footer .social-links a { 
+    font-size: 1.8rem; /* Made the icons slightly bigger to match the new look */
+    transition: var(--transition); 
+    background: var(--card-bg); 
+    height: 50px; 
+    width: 50px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 50%; 
+    box-shadow: var(--card-shadow);
+    text-decoration: none;
+}
+
+/* Make them pop up on hover, keeping their true colors */
+footer .social-links a:hover { 
+    transform: scale(1.15) translateY(-5px); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* The Authentic Instagram Gradient */
+.insta-colored {
+    background: -webkit-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 /* Modal */
 .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
 .modal-content { max-width: 600px; width: 90%; position: relative; animation: modalFadeIn 0.3s ease; }
@@ -350,64 +520,56 @@ footer .social-links a:hover { color: var(--primary-color); transform: translate
 .modal-buttons { display: flex; gap: 1rem; margin-top: 2rem; }
 @keyframes modalFadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Mobile Responsive */
 /* --- MOBILE RESPONSIVE LAYOUT FIXES --- */
 @media (max-width: 768px) {
-    /* 1. Fix Navigation (Stacks nicely instead of disappearing) */
-    .nav-container { 
-        flex-direction: column; 
-        padding: 1rem; 
-        gap: 1rem; 
-    }
-    .nav-links { 
-        display: flex; 
-        flex-wrap: wrap; 
-        justify-content: center; 
-        gap: 1rem; 
-    }
-    .nav-links a { 
-        font-size: 0.9rem; 
-    }
-    .theme-btn { 
-        position: absolute; 
-        top: 1rem; 
-        right: 1.5rem; 
-    }
+    /* Fix Navigation */
+    .nav-container { flex-direction: column; padding: 1rem; gap: 1rem; }
+    .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+    .nav-links a { font-size: 0.9rem; }
+    .theme-btn { position: absolute; top: 1rem; right: 1.5rem; }
 
-    /* 2. Fix Hero Section Text & Buttons */
-    .name { font-size: 2.2rem; margin-top: 1rem; }
-    .typing-text { font-size: 1.2rem; height: auto; min-height: 40px; }
-    .summary { font-size: 0.95rem; padding: 0 0.5rem; }
-    .hero-buttons { 
+    /* Fix Split Hero Section */
+    .split-hero {
+        flex-direction: column-reverse; /* Puts image above text on mobile */
+        text-align: center;
+        gap: 2rem;
+        padding-top: 2rem;
+    }
+    
+    .hero-text-side {
+        text-align: center;
+    }
+    
+    .hero-text-side .name { font-size: 2.5rem; }
+    .hero-text-side .summary { margin: 0 auto 2rem auto; }
+    .hero-text-side .hero-buttons { 
+        justify-content: center; 
         flex-direction: column; 
-        width: 100%; 
         max-width: 300px; 
         margin: 0 auto; 
     }
-    .btn { text-align: center; }
 
-    /* 3. Fix Section Padding (Removes the squished sides) */
     .section { padding: 4rem 1.5rem; }
     .bg-alt { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
 
-    /* 4. Fix About Section */
+    /* Fix About & Education Logos */
     .about-container { flex-direction: column; text-align: center; gap: 2rem; }
     .about-image img { max-width: 250px; }
+    .edu-header { flex-direction: column; align-items: center; text-align: center; }
 
-    /* 5. Fix Grids (Forces cards to stack perfectly on small screens) */
-    .skill-cards-grid { 
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
-        gap: 1rem; 
-    }
+    /* Fix Grids */
+    .skill-cards-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
     .mini-skill-card { padding: 1.5rem 0.5rem; }
     .projects-grid { grid-template-columns: 1fr; } 
 
-    /* 6. Fix Contact & Footer */
+    /* Fix Contact & Footer */
     .contact-container { grid-template-columns: 1fr; gap: 2rem; }
     footer { padding: 2rem 1rem; }
 }
+/* Fix New Grids for Mobile */
+    .learning-container { grid-template-columns: 1fr; }
+    .certifications-grid { grid-template-columns: 1fr; }
 
-/* Fix for extremely small phones (like iPhone SE) */
 @media (max-width: 400px) {
     .skill-cards-grid { grid-template-columns: 1fr; }
 }
