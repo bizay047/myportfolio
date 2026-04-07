@@ -38,24 +38,33 @@ nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); bo
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
-    max-width: 1400px; /* Widened from 1200px */
+    max-width: 95%; /* Widened from 1200px */
     margin: 0 auto; 
-    padding: 1rem 3rem; /* Pushes the logo and moon icon slightly inward */
-}
-/* --- Logo Code Brackets --- */
-
-.logo {
-    display: flex;
-    align-items: center; /* Keeps everything perfectly centered in a row */
+    padding: 1rem 0; /* Pushes the logo and moon icon slightly inward */
 }
 
-.logo .code-bracket { 
-    color: var(--primary-color); 
-    font-size: 1.9rem; /* Bumps up the size of the brackets to match the text */
-    font-weight: 700; 
-    line-height: 1; /* Prevents the bigger brackets from messing up the navbar height */
-    margin-top: -3px; /* Slightly nudges the brackets up to perfectly align with the B */
+/* --- Image Logo in Navbar --- */
+/* --- Image Logo in Navbar --- */
+.nav-logo-img {
+    height: 60px; 
+    width: auto;
+    display: block;
+    transition: var(--transition);
 }
+
+
+
+/* Magic Trick: Removes white background in Light Mode */
+body:not(.dark-mode) .nav-logo-img {
+    mix-blend-mode: multiply; 
+}
+
+/* Magic Trick: Inverts text to white, keeps brackets blue, and removes background in Dark Mode! */
+body.dark-mode .nav-logo-img {
+    filter: invert(1) hue-rotate(180deg) brightness(1.2);
+    mix-blend-mode: screen; 
+}
+
 .nav-links { display: flex; list-style: none; gap: 2rem; }
 .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; transition: var(--transition); }
 .nav-links a:hover { color: var(--primary-color); }
@@ -125,8 +134,8 @@ nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); bo
      
     object-fit: cover; 
     border-radius: var(--border-radius); /* Changed from 50% for sharp corners */
-    border: 1px solid var(--card-bg); 
-    box-shadow: 0 0 25px rgba(59, 130, 246, 0.4); 
+    
+ 
     transition: var(--transition);
 }
 
@@ -510,6 +519,7 @@ footer .social-links a:hover {
 /* The Authentic Instagram Gradient */
 .insta-colored {
     background: -webkit-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
