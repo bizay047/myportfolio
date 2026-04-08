@@ -4,11 +4,8 @@ if (history.scrollRestoration) {
 }
 window.scrollTo(0, 0);
 
-
-    // ...
-document.addEventListener("DOMContentLoaded", () => {   
+document.addEventListener("DOMContentLoaded", () => {    
         
-    
     // --- 1. Dark/Light Mode Toggle ---
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
@@ -98,9 +95,8 @@ document.addEventListener("DOMContentLoaded", () => {
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                // Changes particle color based on theme
-              // Neon Cyan for dark mode, Electric Purple for light mode
-              ctx.fillStyle = body.classList.contains('dark-mode') ? '#3b82f6' : '#3b82f6';
+                // Neon Cyan for dark mode, Electric Purple for light mode
+                ctx.fillStyle = body.classList.contains('dark-mode') ? '#3b82f6' : '#3b82f6';
                 ctx.fill();
             }
             update() {
@@ -145,7 +141,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                     if (distance < (canvas.width / 10) * (canvas.height / 10)) {
                         opacityValue = 1 - (distance / 20000);
-                        // Blue lines for dark mode, gray lines for light mode
                         let lineColor = body.classList.contains('dark-mode') 
                             ? `rgba(59, 130, 246, ${opacityValue})` 
                             : `rgba(59, 130, 246, ${opacityValue})`;
@@ -164,9 +159,44 @@ document.addEventListener("DOMContentLoaded", () => {
         resizeCanvas();
         animateParticles();
     }
+
+    // --- 5. Smooth Scroll Reveal Animation ---
+    const observerOptions = {
+        threshold: 0.1, // Triggers when 10% of the element is visible
+        rootMargin: "0px 0px -50px 0px" // Triggers slightly before it fully hits the bottom
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                // Removes observer after it reveals once so it doesn't re-animate every time
+                observer.unobserve(entry.target); 
+            }
+        });
+    }, observerOptions);
+
+    // Finds everything with the class "reveal" and watches it
+    const revealElements = document.querySelectorAll('.reveal');
+    revealElements.forEach((el) => observer.observe(el));
+
+    // --- 6. Frosted Glass Navbar on Scroll ---
+    
+    const nav = document.querySelector('nav');
+    if (nav) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                // Only adds the visual glass effect, does NOT touch positioning
+                nav.classList.add('scrolled'); 
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    }
 });
 
 // --- 4. Project Modal Logic ---
+// (Kept outside DOMContentLoaded so they are globally accessible to your inline onclick handlers)
 const modal = document.getElementById("project-modal");
 
 window.openModal = function(title, desc, tech, github, demo) {
