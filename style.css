@@ -1,4 +1,4 @@
-/* Color Variables for Light & Dark Mode */
+
 /* Color Variables for Light & Dark Mode */
 :root {
     --bg-color: #f9f7f1;
@@ -44,7 +44,7 @@ nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); bo
 }
 
 /* --- Image Logo in Navbar --- */
-/* --- Image Logo in Navbar --- */
+
 .nav-logo-img {
     height: 60px; 
     width: auto;
@@ -58,7 +58,18 @@ nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); bo
 body:not(.dark-mode) .nav-logo-img {
     mix-blend-mode: multiply; 
 }
-
+/* Restores and Fixes the Moon/Sun Button! */
+.theme-btn { 
+    background: none; 
+    border: none; 
+    font-size: 1.5rem; 
+    cursor: pointer; 
+    color: var(--text-main); 
+    display: flex !important; 
+    align-items: center;
+    z-index: 100000;
+    margin-right: 1.5rem; /* ⬅️ THIS is the magic line that shifts it left! */
+}
 /* Magic Trick: Inverts text to white, keeps brackets blue, and removes background in Dark Mode! */
 body.dark-mode .nav-logo-img {
     filter: invert(1) hue-rotate(180deg) brightness(1.2);
@@ -582,4 +593,50 @@ footer .social-links a:hover {
 
 @media (max-width: 400px) {
     .skill-cards-grid { grid-template-columns: 1fr; }
+}
+
+/* =========================================
+   SCROLL ANIMATIONS & EFFECTS
+   ========================================= */
+
+/* 1. The Fade & Slide Up Effect */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px); /* Starts 40px lower */
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); /* Super smooth, premium easing */
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0); /* Slides up to its normal spot */
+}
+
+/* 2. Frosted Glass Navbar on Scroll */
+nav {
+    transition: all 0.26s ease; /* Ensures smooth transition */
+}
+
+nav.scrolled {
+    background-color: rgba(255, 255, 255, 0.85); /* Slightly transparent white */
+    backdrop-filter: blur(12px); /* Creates the Apple-style frosted glass look */
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+/* Dark Mode Frosted Glass */
+body.dark-mode nav.scrolled {
+    background-color: rgba(30, 41, 59, 0.85); /* Slightly transparent dark slate */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+/* --- Custom Image Icon in Footer --- */
+.footer-custom-icon {
+    width: 30px; /* Matches the size of the other social icons */
+    height: 30px;
+    object-fit: contain; /* Prevents the image from stretching */
+    transition: var(--transition);
+}
+
+/* If your custom logo has black text, this makes it glow white in Dark Mode! */
+body.dark-mode .footer-custom-icon {
+    filter: invert(1) hue-rotate(180deg) brightness(1.2);
 }
