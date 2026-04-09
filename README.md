@@ -69,3 +69,15 @@ Since this project is built with pure Vanilla HTML/CSS/JS, no complex build tool
 ├── 🖼️ favicon1.png    # Browser tab icon
 ├── 📄 bijay_resume.pdf# Downloadable CV
 └── 📁 (Images)        # Various project and profile images (e.g., bijaymain.png, kiit2.png)
+
+
+📬 Let's Connect
+I am currently a B.Tech student at KIIT University (2023-2027) actively looking for opportunities to apply my skills in Machine Learning, Computer Vision, and Software Engineering.
+
+Email: hello@yadavbijay.com.np
+
+LinkedIn: Bijay Yadav
+
+Instagram: @bizay047
+
+© 2026 Bijay Kumar Yadav. All rights reserved. Made with ❤️ by Bizay.
