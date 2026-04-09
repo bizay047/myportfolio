@@ -1,244 +1,748 @@
-// --- 0. Force Page to Top on Refresh ---
-if (history.scrollRestoration) {
-    history.scrollRestoration = 'manual';
-}
-window.scrollTo(0, 0);
 
-document.addEventListener("DOMContentLoaded", () => {    
-        
-    // --- 1. Dark/Light Mode Toggle ---
-    const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
-    const icon = themeToggle ? themeToggle.querySelector('i') : null;
-
-    if (themeToggle && icon) {
-        // Check local storage for saved theme on page load
-        if (localStorage.getItem('theme') === 'dark') {
-            body.classList.add('dark-mode');
-            icon.classList.replace('fa-moon', 'fa-sun');
-        } else {
-            // Default to light mode icon if not dark
-            icon.classList.replace('fa-sun', 'fa-moon');
-        }
-
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            if (body.classList.contains('dark-mode')) {
-                icon.classList.replace('fa-moon', 'fa-sun');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                icon.classList.replace('fa-sun', 'fa-moon');
-                localStorage.setItem('theme', 'light');
-            }
-        });
-    }
-
-    // --- 2. Typewriter Effect (Bulletproofed) ---
-    const words = ["AI & ML Engineer", "Data Analyst", "Computer Science Student"];
-    let i = 0, j = 0;
-    let isDeleting = false;
-    let typeSpeed = 100;
-    const typewriterElement = document.getElementById("typewriter");
-
-    function type() {
-        if (!typewriterElement) return; // Stop if element is missing
-        
-        const currentWord = words[i];
-        
-        if (isDeleting) {
-            typewriterElement.textContent = currentWord.substring(0, j - 1);
-            j--;
-            typeSpeed = 50; // Faster when backspacing
-        } else {
-            typewriterElement.textContent = currentWord.substring(0, j + 1);
-            j++;
-            typeSpeed = 100; // Normal typing speed
-        }
-
-        // Logic to switch between typing and deleting
-        if (!isDeleting && j === currentWord.length) {
-            isDeleting = true;
-            typeSpeed = 2000; // Pause at the end of the full word
-        } else if (isDeleting && j === 0) {
-            isDeleting = false;
-            i = (i + 1) % words.length; // Move to the next word in the array
-            typeSpeed = 500; // Pause before typing the next word
-        }
-        
-        setTimeout(type, typeSpeed);
-    }
-
-    if (typewriterElement) {
-        setTimeout(type, 500); // Start the effect with a slight delay
-    }
-
-    // --- 3. Full Page Neural Network Background ---
-    const canvas = document.getElementById('particle-canvas');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        let particlesArray = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            initParticles();
-        }
-        
-        window.addEventListener('resize', resizeCanvas);
-
-        class Particle {
-            constructor(x, y, directionX, directionY, size) {
-                this.x = x; this.y = y;
-                this.directionX = directionX; this.directionY = directionY;
-                this.size = size;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                // Neon Cyan for dark mode, Electric Purple for light mode
-                ctx.fillStyle = body.classList.contains('dark-mode') ? '#3b82f6' : '#3b82f6';
-                ctx.fill();
-            }
-            update() {
-                // Bounce off edges
-                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX; 
-                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY; 
-                this.x += this.directionX;
-                this.y += this.directionY;
-                this.draw();
-            }
-        }
-
-        function initParticles() {
-            particlesArray = [];
-            let numberOfParticles = (canvas.height * canvas.width) / 12000; 
-            for (let i = 0; i < numberOfParticles; i++) {
-                let size = (Math.random() * 2) + 1;
-                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-                let directionX = (Math.random() * 1) - 0.5;
-                let directionY = (Math.random() * 1) - 0.5;
-                particlesArray.push(new Particle(x, y, directionX, directionY, size));
-            }
-        }
-
-        function animateParticles() {
-            requestAnimationFrame(animateParticles);
-            ctx.clearRect(0, 0, innerWidth, innerHeight);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-            }
-            connectParticles();
-        }
-
-        function connectParticles() {
-            let opacityValue = 1;
-            
-            for (let a = 0; a < particlesArray.length; a++) {
-                for (let b = a; b < particlesArray.length; b++) {
-                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
-                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-                    
-                    if (distance < (canvas.width / 10) * (canvas.height / 10)) {
-                        opacityValue = 1 - (distance / 20000);
-                        let lineColor = body.classList.contains('dark-mode') 
-                            ? `rgba(59, 130, 246, ${opacityValue})` 
-                            : `rgba(59, 130, 246, ${opacityValue})`;
-                            
-                        ctx.strokeStyle = lineColor;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        resizeCanvas();
-        animateParticles();
-    }
-
-    // --- 5. Smooth Scroll Reveal Animation (MOBILE OPTIMIZED) ---
-    const observerOptions = {
-        threshold: 0, // Triggers immediately when it enters the screen
-        rootMargin: "0px 0px -20px 0px" // Very small buffer so it works on tall mobile cards
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                // Removes observer after it reveals once
-                observer.unobserve(entry.target); 
-            }
-        });
-    }, observerOptions);
-
-    // Finds everything with the class "reveal" and watches it
-    const revealElements = document.querySelectorAll('.reveal');
-    revealElements.forEach((el) => observer.observe(el));
-
-    // --- 6. Frosted Glass Navbar on Scroll ---
-    const nav = document.querySelector('nav');
-    if (nav) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 20) {
-                nav.classList.add('scrolled'); 
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        }, { passive: true }); // Makes scrolling physically smoother on phones
-    }
-
-    // --- 7. Mobile Hamburger Menu (MOVED INSIDE DOMContentLoaded) ---
-    const mobileBtn = document.getElementById('mobile-menu-btn');
-    const navLinksList = document.getElementById('nav-links');
-
-    if (mobileBtn && navLinksList) {
-        mobileBtn.addEventListener('click', () => {
-            navLinksList.classList.toggle('active');
-            // Changes the 3 lines to an X when open
-            const icon = mobileBtn.querySelector('i');
-            if (navLinksList.classList.contains('active')) {
-                icon.classList.replace('fa-bars', 'fa-times');
-            } else {
-                icon.classList.replace('fa-times', 'fa-bars');
-            }
-        });
-
-        // Automatically close the mobile menu when a link is clicked
-        navLinksList.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinksList.classList.remove('active');
-                mobileBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
-            });
-        });
-    }
-
-}); // <-- End of DOMContentLoaded
-
-// --- 4. Project Modal Logic ---
-// (Must stay outside DOMContentLoaded so HTML onclick attributes can find it)
-const modal = document.getElementById("project-modal");
-
-window.openModal = function(title, desc, tech, github, demo) {
-    document.getElementById("modal-title").innerText = title;
-    document.getElementById("modal-desc").innerText = desc;
-    document.getElementById("modal-tech").innerText = tech;
-    document.getElementById("modal-github").href = github;
-    document.getElementById("modal-demo").href = demo;
-    if(modal) modal.style.display = "flex";
+/* Color Variables for Light & Dark Mode */
+:root {
+    --bg-color: #f9f7f1;
+    --bg-alt: #f9f7f1;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --primary-color: #3b82f6;
+    --primary-hover: #2563eb;
+    --card-bg: #ffffff;
+    --card-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 10px 15px rgba(0,0,0,0.03);
+    --border-radius: 12px; /* Slightly sharper corners for modern look */
+    --transition: all 0.3s ease;
 }
 
-window.closeModal = function() {
-    if(modal) modal.style.display = "none";
+body.dark-mode {
+    --bg-color: #0f172a;
+    --bg-alt: #1e293b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --primary-color: #60a5fa;
+    --primary-hover: #3b82f6;
+    --card-bg: #1e293b; /* This gives the dark blue card look from your image */
+    --card-shadow: 0 4px 6px rgba(0,0,0,0.3), 0 10px 15px rgba(0,0,0,0.2);
 }
 
-// Close modal if user clicks outside the modal box
-window.onclick = function(event) {
-    if (event.target === modal) {
-        modal.style.display = "none";
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+/* --- Prevents Mobile Zoom-Out Bugs --- */
+ body {
+    max-width: 100vw;
+    overflow-x: hidden; /* This is the magic line that stops horizontal scrolling/zooming! */
+}
+
+body { background-color: var(--bg-color); color: var(--text-main); transition: var(--transition); line-height: 1.6; }
+
+h1, h2, h3 { color: var(--text-main); }
+.section-title { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; }
+.section-title span { color: var(--primary-color); }
+
+/* Navigation */
+nav { position: fixed; top: 0; width: 100%; background-color: var(--card-bg); box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
+.nav-container { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    max-width: 95%; /* Widened from 1200px */
+    margin: 0 auto; 
+    padding: 1rem 0; /* Pushes the logo and moon icon slightly inward */
+}
+
+/* --- Image Logo in Navbar --- */
+
+.nav-logo-img {
+    height: 60px; 
+    width: auto;
+    display: block;
+    transition: var(--transition);
+}
+
+
+
+/* Magic Trick: Removes white background in Light Mode */
+body:not(.dark-mode) .nav-logo-img {
+    mix-blend-mode: multiply; 
+}
+/* Restores and Fixes the Moon/Sun Button! */
+.theme-btn { 
+    background: none; 
+    border: none; 
+    font-size: 1.5rem; 
+    cursor: pointer; 
+    color: var(--text-main); 
+    display: flex !important; 
+    align-items: center;
+    z-index: 100000;
+    margin-right: 1.5rem;
+ } /* ⬅️ THIS is the magic line that shifts it left! */
+    /* Mobile Menu Button Container */
+/* Mobile Menu Button Container (Locks buttons in a row with spacing) */
+.nav-right-controls { 
+    display: flex !important; 
+    flex-direction: row !important; /* Forces them onto the same horizontal line */
+    align-items: center !important; /* Keeps them vertically centered with each other */
+    gap: 1.5rem !important; /* Adds that perfect, attractive space between them */
+}
+
+/* Ensure the buttons themselves don't do anything weird */
+.mobile-btn { 
+    background: none; 
+    border: none; 
+    font-size: 1.5rem; 
+    color: var(--text-main); 
+    cursor: pointer; 
+    display: none; /* Hidden on desktop, shown on mobile via media query */
+}
+/* Magic Trick: Inverts text to white, keeps brackets blue, and removes background in Dark Mode! */
+body.dark-mode .nav-logo-img {
+    filter: invert(1) hue-rotate(180deg) brightness(1.2);
+    mix-blend-mode: screen; 
+}
+
+.nav-links { display: flex; list-style: none; gap: 2rem; }
+.nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; transition: var(--transition); }
+.nav-links a:hover { color: var(--primary-color); }
+.theme-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); }
+
+/* --- FULL PAGE BACKGROUND FIX --- */
+#particle-canvas { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh; 
+    z-index: -1;  
+    pointer-events: none; 
+}
+
+/* --- Split Hero Section Layout --- */
+#hero { 
+    position: relative; 
+    min-height: 100vh; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    overflow: hidden; 
+    padding-top: 80px; 
+}
+
+
+.split-hero { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 8rem; /* Pushes the text and image further apart */
+    max-width: 1400px; /* Widened from 1200px to match the navbar */
+    width: 100%; 
+    padding: 0 3rem; 
+    position: relative; 
+    z-index: 2; 
+}
+
+/* Left Side Formatting */
+.hero-text-side { 
+    flex: 1.2; 
+    text-align: left; 
+}
+
+.hero-text-side .greeting { text-align: center; }
+.hero-text-side .name { font-size: 3.5rem; font-weight: 700; margin: 0.5rem 0; line-height: 1.1; text-align: center;}
+.hero-text-side .typing-text { font-size: 1.8rem; color: var(--primary-color); height: 40px; margin-bottom: 1rem; text-align: center; }
+.hero-text-side .summary { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 550px;text-align: center; }
+.hero-text-side .hero-buttons { display: flex; gap: 1rem; justify-content: flex-start;align-items: center; }
+
+/* Right Side Formatting */
+.hero-visual-side { 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 2rem; 
+}
+
+/* --- UPDATED Hero Profile Image --- */
+.hero-profile-img { 
+    width: auto; 
+    height: auto;
+    max-width: 320px; 
+     
+    object-fit: cover; 
+    border-radius: var(--border-radius); /* Changed from 50% for sharp corners */
+    
+ 
+    transition: var(--transition);
+}
+
+
+
+.hero-action-buttons { 
+    display: flex; 
+    gap: 1rem; 
+    width: 100%;
+    justify-content: center;
+}
+
+/* Buttons */
+.btn { padding: 10px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: var(--transition); display: inline-block; cursor: pointer; border: 2px solid transparent; }
+.primary-btn { background-color: var(--primary-color); color: #fff; }
+.primary-btn:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
+.secondary-btn { border-color: var(--primary-color); color: var(--primary-color); }
+.secondary-btn:hover { background-color: var(--primary-color); color: #fff; transform: translateY(-2px); }
+
+/* Layout & Cards */
+.section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+.bg-alt { background-color: transparent; max-width: 100%; padding-left: 10%; padding-right: 10%;}
+.card { background-color: var(--card-bg); padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--card-shadow); transition: var(--transition); }
+.card:hover { transform: translateY(-5px); box-shadow: 0 15px 25px rgba(0,0,0,0.1); }
+
+/* About Section */
+.about-container { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 4rem; 
+    flex-wrap: wrap; 
+}
+.about-image img { 
+    width: 100%; 
+    max-width: 320px; 
+    border-radius: var(--border-radius); 
+    box-shadow: var(--card-shadow); 
+    object-fit: cover;
+    border: 4px solid var(--card-bg);
+}
+.about-text { max-width: 600px; }
+.about-text h3 { font-size: 1.5rem; color: var(--primary-color); margin-bottom: 1rem; }
+.about-text p { color: var(--text-muted); margin-bottom: 0.8rem; font-size: 1.05rem; }
+
+
+/* Layout & Cards */
+.section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+.bg-alt { background-color: transparent; max-width: 100%; padding-left: 10%; padding-right: 10%;}
+.card { background-color: var(--card-bg); padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--card-shadow); transition: var(--transition); }
+.card:hover { transform: translateY(-5px); box-shadow: 0 15px 25px rgba(0,0,0,0.1); }
+
+/* =========================================
+   GLOBAL SCROLL ANIMATION EFFECTS
+   ========================================= */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px); 
+    transition: opacity 0.6s ease-out, transform 0.4s ease-out; 
+    will-change: opacity, transform; 
+}
+
+.reveal.active {
+    opacity: 1.5;
+    transform: translateY(0); 
+}
+
+nav.scrolled {
+    background-color: rgba(255, 255, 255, 0.85) !important; 
+    backdrop-filter: blur(12px) !important; 
+    -webkit-backdrop-filter: blur(12px) !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+}
+
+body.dark-mode nav.scrolled {
+    background-color: rgba(30, 41, 59, 0.85) !important; 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important;
+}
+
+
+/* Skills Grid */
+.skill-category { margin-bottom: 3rem; }
+
+/* Centered Category Titles with Pill Background & Lines */
+.category-title { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    margin-bottom: 2.5rem; 
+    width: 100%;
+}
+
+.category-title::before,
+.category-title::after {
+    content: "";
+    flex: 1; 
+    height: 2px; 
+    background: var(--primary-color); 
+    opacity: 0.3; 
+    border-radius: 2px;
+}
+
+.category-title span {
+    background: rgba(59, 130, 246, 0.1); 
+    color: var(--primary-color);
+    padding: 0.6rem 1.8rem;
+    border-radius: 30px; 
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 1rem; 
+    border: 1px solid rgba(59, 130, 246, 0.2); 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+}
+
+/* --- Updated Skills Grid (Perfectly Centered, adds to the right) --- */
+.skill-cards-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, 150px); /* Locks every card to exactly 150px */
+    justify-content: center; /* Centers the entire block of cards on the screen */
+    gap: 1.5rem; 
+    max-width: 900px; 
+    margin: 0 auto; 
+}
+
+.mini-skill-card {
+    background-color: var(--card-bg);
+    width: 100%; /* Fills the 150px grid space perfectly */
+
+    padding: 2rem 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    transition: var(--transition);
+}
+.mini-skill-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); border-bottom: 3px solid var(--primary-color); }
+/* --- Icons inside the mini-skill-cards --- */
+.mini-skill-card i { 
+    font-size: 3rem; 
+    /* Removed the forced blue color so the brand colors show! */
+    background: var(--bg-alt); /* Gives the circle a soft, neutral background */
+    height: 80px; 
+    width: 80px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 49%; 
+    border: 1px solid rgba(100, 116, 139, 0.2); /* Soft neutral border */
+    margin-bottom: 0.5rem;
+    transition: var(--transition);
+}
+
+/* Hover effect for the new colored icons */
+.mini-skill-card:hover i {
+    background: var(--card-bg); /* Keeps background clean */
+    transform: scale(1.15); /* Makes the logo pop up instead of turning solid blue */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Adds a 3D shadow effect */
+}
+.mini-skill-card span { font-weight: 600; font-size: 1.1rem; }
+
+/* Education Timeline */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20px;
+    height: 100%;
+    width: 4px;
+    background: rgba(59, 130, 246, 0.2);
+    border-radius: 2px;
+}
+.timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 60px;
+}
+.timeline-dot {
+    position: absolute;
+    top: 20px;
+    left: 12px;
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--primary-color);
+    border: 4px solid var(--bg-color);
+    transition: var(--transition);
+}
+.timeline-item:hover .timeline-dot {
+    transform: scale(1.3);
+    box-shadow: 0 0 20px var(--primary-color);
+}
+.timeline-content { position: relative; }
+.timeline-date {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--primary-color);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+.timeline-content h3 { margin-bottom: 0.2rem; font-size: 1.3rem; }
+.timeline-content h4 { color: var(--text-muted); font-weight: 400; margin-bottom: 1rem; font-size: 1rem; }
+.timeline-grade { display: block; margin-top: 1rem; font-weight: 700; color: var(--text-main); }
+
+/* Education Logos */
+.edu-header { display: flex; align-items: flex-start; gap: 1.2rem; margin-bottom: 1rem; }
+.edu-logo {
+    width: 90px;
+    height: auto;
+    background-color: #ffffff; 
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px solid var(--text-muted);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.edu-text h4 a { color: var(--text-muted); text-decoration: none; transition: var(--transition); }
+.edu-text h4 a:hover { color: var(--primary-color); }
+.edu-text h4 a i { font-size: 0.75rem; margin-left: 4px; }
+
+/* Projects Grid */
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;  }
+/* --- Major Projects Layout --- */
+.major-projects-grid {
+    max-width: 280px; /* Stops a single card from stretching across the whole screen */
+    margin: 0 auto; /* Centers the grid */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Makes the cards wider squares */
+   
+}
+
+/* Make the Major Project Logo Big */
+.project-icon.major-logo {
+    width: 130px; /* Much bigger logo! */
+    height: 130px;
+    margin: 0 auto 1.5rem auto;
+    border-radius: 15px;
+    border: 1px solid var(--text-muted);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: var(--transition);
+}
+
+.project-icon.major-logo a {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: #f09433;
+}
+
+.project-icon.major-logo img {
+    width: 160px; /* Scales the image up to fill the larger logo container */
+    height: 160px;
+    padding: 5px;
+    border-radius: 20px;
+    object-fit: contain;
+    transform: scale(-1.3);
+    transition: var(--transition);
+}
+
+
+.project-card { cursor: pointer; text-align: center;}
+.project-icon { 
+    background: rgba(59, 130, 246, 0.1); 
+    height: 60px; 
+    width: 60px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 1.5rem; 
+    color: var(--primary-color); 
+    margin: 0 auto 1rem auto; 
+    border: 1px solid rgba(59, 130, 246, 0.3); 
+}
+/* Makes custom image logos fit perfectly in the project cards */
+.project-icon.custom-logo {
+    background: transparent; /* Removes the blue tint so your logo colors pop */
+    border: none; /* Removes the border for a cleaner look */
+}
+
+.project-icon.custom-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensures the whole logo fits without getting cut off */
+    transform: scale(1.3); /* Makes it slightly larger to fill the space nicely */
+}
+.project-card h3 { margin-bottom: 0.5rem; }
+.project-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+.learn-more { color: var(--primary-color); font-weight: 600; font-size: 0.9rem; }
+
+/* --- NEW: Currently Learning Section --- */
+
+.learning-container {
+    display: flex;
+    flex-direction: column; /* Stacks the cards as horizontal rows */
+    gap: 2rem;
+    max-width: 950px; /* Keeps the text lines from getting too wide to read */
+    margin: 0 auto; /* Centers the whole container */
+}
+
+.learning-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    text-align: left;
+}
+
+.learning-card h3 { 
+    color: var(--primary-color); 
+    font-size: 1.4rem; 
+    line-height: 1.3;
+}
+
+.learning-card h4 a { 
+    color: var(--text-main); 
+    text-decoration: none; 
+    font-weight: 600; 
+    transition: var(--transition);
+}
+
+.learning-card h4 a:hover { 
+    color: var(--primary-color); 
+}
+
+.learning-card .timeline-date { 
+    margin-bottom: 0.5rem; 
+    display: inline-block;
+}
+
+/* --- NEW: Certifications Section --- */
+/* --- Updated Certifications Grid & Pills --- */
+.certifications-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+.certification-card {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* Flexbox to keep Titles and Coursera/Dates on the same line */
+.card-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Allows it to stack nicely on mobile */
+    gap: 1rem;
+}
+
+/* The uniform Pill Background for Coursera and Dates */
+.pill-badge {
+    background: rgba(59, 130, 246, 0.1); 
+    color: var(--primary-color);
+    padding: 0.4rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap; /* Prevents the text from wrapping */
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Contact Section */
+.contact-container { display: grid; grid-template-columns: 1fr 1.5fr; gap: 2rem; }
+.contact-info h3 { margin-bottom: 1.5rem; color: var(--primary-color); }
+.contact-info p { margin-bottom: 1rem; color: var(--text-muted); display: flex; align-items: center; gap: 10px; font-size: 1.1rem;}
+.contact-info p i { color: var(--primary-color); font-size: 1.2rem; width: 20px;}
+.form-group { margin-bottom: 1.5rem; text-align: left; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-main); }
+.form-control { width: 100%; padding: 12px; border: 1px solid var(--text-muted); border-radius: 8px; background: var(--bg-color); color: var(--text-main); font-family: inherit; transition: border 0.3s; }
+.form-control:focus { outline: none; border-color: var(--primary-color); }
+.btn-submit { width: 100%; margin-top: 1rem; }
+
+/* Footer */
+footer { text-align: center; padding: 3rem 2rem; background-color: transparent; border-top: 1px solid var(--text-muted); }
+footer p { color: var(--text-muted); margin-bottom: 1.5rem; }
+footer .social-links { display: flex; justify-content: center; gap: 1.5rem; }
+
+footer .social-links a { 
+    font-size: 1.8rem; /* Made the icons slightly bigger to match the new look */
+    transition: var(--transition); 
+    background: var(--card-bg); 
+    height: 50px; 
+    width: 50px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 50%; 
+    box-shadow: var(--card-shadow);
+    text-decoration: none;
+}
+
+/* Make them pop up on hover, keeping their true colors */
+footer .social-links a:hover { 
+    transform: scale(1.15) translateY(-5px); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* The Authentic Instagram Gradient */
+.insta-colored {
+    background: -webkit-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+/* --- Custom Image Icon in Footer --- */
+.footer-custom-icon {
+    width: 45px; /* Matches the size of the other social icons */
+    height: 45px;
+    object-fit: contain; /* Prevents the image from stretching */
+    transition: var(--transition);
+}
+
+/* If your custom logo has black text, this makes it glow white in Dark Mode! */
+body.dark-mode .footer-custom-icon {
+    filter: invert(1) hue-rotate(180deg) brightness(1.2);
+}
+/* Modal */
+.modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
+.modal-content { max-width: 600px; width: 90%; position: relative; animation: modalFadeIn 0.3s ease; }
+.close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
+.modal-buttons { display: flex; gap: 1rem; margin-top: 2rem; }
+@keyframes modalFadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+
+
+/* --- MOBILE RESPONSIVE LAYOUT FIXES --- */
+/* --- MOBILE RESPONSIVE LAYOUT FIXES --- */
+@media (max-width: 768px) {
+    /* 1. Fix the Navigation Bar Alignment */
+    .nav-container { 
+        flex-direction: row; 
+        justify-content: space-between; /* Pushes Logo to left, Icons to right! */
+        padding: 15px 1.5rem; /* Gives perfect breathing room on the edges */
+        width: 100%;
     }
+    
+    .nav-right-controls { 
+        display: flex; 
+        align-items: center; 
+        justify-content: flex-end;
+        gap: 1.5rem; 
+    }
+    
+    .mobile-btn { display: flex; align-items: center; justify-content: center; } 
+    
+    .theme-btn { 
+        position: static !important; 
+        margin: 0 !important; 
+        font-size: 1.4rem; 
+    }
+    
+    /* Hide links by default, turn them into a dropdown */
+    .nav-links {
+        display: none; 
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--card-bg);
+        flex-direction: column;
+        padding: 1.5rem 0;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        text-align: center;
+        gap: 1.5rem;
+    }
+    .nav-links.active { display: grid; }
+
+    /* 2. FIX FULL WIDTH & TEXT OVERFLOW */
+    .split-hero { 
+        flex-direction: column !important; 
+        text-align: center !important; 
+        gap: 2rem !important; 
+        padding: 6rem 5% 2rem 5% !important; /* Uses percentages so it fits perfectly on ANY phone size */
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+    }
+    
+    .hero-text-side { 
+        order: 1 !important; 
+        width: 100% !important; 
+        max-width: 100% !important;
+    } 
+    
+    .hero-text-side .name { font-size: 2.2rem !important; }
+    
+    .hero-text-side .typing-text { 
+        height: auto !important; 
+        min-height: 40px !important; 
+        margin-bottom: 1.5rem !important; 
+    }
+    
+    .hero-text-side .summary { margin: 0 auto 1.5rem auto !important; }
+    
+    /* 3. STRICT BUTTON STACKING */
+    .hero-buttons { 
+        display: flex !important;
+        flex-direction: column !important; /* Strictly forces them to stack vertically */
+        gap: 1rem !important; 
+        width: 100% !important;
+        padding: 0 !important;
+        margin-top: 1rem !important;
+    }
+    
+    .hero-buttons .btn {
+        width: 100% !important; /* Stretches buttons across the screen */
+        text-align: center !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    .hero-visual-side { order: 2; margin-top: 1rem; width: 100%; } 
+    .hero-profile-img { 
+        max-width: 340px !important; /* Increased from 250px to make it much bigger */
+        width: 100% !important; /* Ensures it scales perfectly even on tiny iPhone SE screens */
+    }
+
+    /* General Layout Fixes */
+    .section { padding: 4rem 1.5rem; }
+    .bg-alt { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+    .about-container { flex-direction: column; text-align: center; gap: 2rem; }
+    .about-image img { max-width: 250px; }
+    .edu-header { flex-direction: column; align-items: center; text-align: center; }
+    .projects-grid { grid-template-columns: 1fr; } 
+    .contact-container { grid-template-columns: 1fr; gap: 2rem; }
+    footer { padding: 2rem 1rem; }
+
+    /* =========================================
+   MISSING SCROLL ANIMATION EFFECTS
+   ========================================= */
+
+/* 1. The Fade & Slide Up Effect */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px); 
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out; 
+    will-change: opacity, transform; 
+}
+
+.reveal.active {
+    opacity: 1.5;
+    transform: translateY(0); 
+
+}
+
+/* 2. Frosted Glass Navbar on Scroll */
+nav.scrolled {
+    background-color: rgba(255, 255, 255, 0.85) !important; 
+    backdrop-filter: blur(12px) !important; 
+    -webkit-backdrop-filter: blur(12px) !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+}
+
+body.dark-mode nav.scrolled {
+    background-color: rgba(30, 41, 59, 0.85) !important; 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important;
+}
 }
