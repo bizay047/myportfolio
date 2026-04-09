@@ -160,17 +160,17 @@ document.addEventListener("DOMContentLoaded", () => {
         animateParticles();
     }
 
-    // --- 5. Smooth Scroll Reveal Animation ---
+    // --- 5. Smooth Scroll Reveal Animation (MOBILE OPTIMIZED) ---
     const observerOptions = {
-        threshold: 0.1, // Triggers when 10% of the element is visible
-        rootMargin: "0px 0px -50px 0px" // Triggers slightly before it fully hits the bottom
+        threshold: 0, // Triggers immediately when it enters the screen
+        rootMargin: "0px 0px -20px 0px" // Very small buffer so it works on tall mobile cards
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-                // Removes observer after it reveals once so it doesn't re-animate every time
+                // Removes observer after it reveals once
                 observer.unobserve(entry.target); 
             }
         });
@@ -181,22 +181,46 @@ document.addEventListener("DOMContentLoaded", () => {
     revealElements.forEach((el) => observer.observe(el));
 
     // --- 6. Frosted Glass Navbar on Scroll ---
-    
     const nav = document.querySelector('nav');
     if (nav) {
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                // Only adds the visual glass effect, does NOT touch positioning
+            if (window.scrollY > 20) {
                 nav.classList.add('scrolled'); 
             } else {
                 nav.classList.remove('scrolled');
             }
+        }, { passive: true }); // Makes scrolling physically smoother on phones
+    }
+
+    // --- 7. Mobile Hamburger Menu (MOVED INSIDE DOMContentLoaded) ---
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const navLinksList = document.getElementById('nav-links');
+
+    if (mobileBtn && navLinksList) {
+        mobileBtn.addEventListener('click', () => {
+            navLinksList.classList.toggle('active');
+            // Changes the 3 lines to an X when open
+            const icon = mobileBtn.querySelector('i');
+            if (navLinksList.classList.contains('active')) {
+                icon.classList.replace('fa-bars', 'fa-times');
+            } else {
+                icon.classList.replace('fa-times', 'fa-bars');
+            }
+        });
+
+        // Automatically close the mobile menu when a link is clicked
+        navLinksList.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinksList.classList.remove('active');
+                mobileBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
+            });
         });
     }
-});
+
+}); // <-- End of DOMContentLoaded
 
 // --- 4. Project Modal Logic ---
-// (Kept outside DOMContentLoaded so they are globally accessible to your inline onclick handlers)
+// (Must stay outside DOMContentLoaded so HTML onclick attributes can find it)
 const modal = document.getElementById("project-modal");
 
 window.openModal = function(title, desc, tech, github, demo) {
