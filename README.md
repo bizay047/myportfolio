@@ -1,7 +1,7 @@
 # 🚀 Bijay Yadav — AI/ML Portfolio
 
 <p align="center">
-  <img src="bijaymain.png" width="42%" style="max-width:210px;">
+  <img src="bijaymain.png" width="40%" style="max-width:200px;">
 </p>
 
 <p align="center">
@@ -12,8 +12,8 @@
 <p align="center">
   🔗 <a href="https://yadavbijay.com.np"><b>Live Portfolio</b></a> • 
   📧 <a href="mailto:hello@yadavbijay.com.np">Contact Me</a> • 
-  💼 <a href="#">LinkedIn</a> • 
-  📸 <a href="#">Instagram</a>
+  💼 <a href="https://www.linkedin.com/in/bijay-yadav-b5aa4a38b/">LinkedIn</a> • 
+  📸 <a href="https://www.instagram.com/bizay047">Instagram</a>
 </p>
 
 ---
@@ -125,8 +125,8 @@ Open index.html in browser
 ## 📬 Let's Connect
 
 * 📧 Email: [hello@yadavbijay.com.np](mailto:hello@yadavbijay.com.np)
-* 💼 LinkedIn: Bijay Yadav
-* 📸 Instagram: @bizay047
+* 💼 LinkedIn: [Bijay Yadav](https://www.linkedin.com/in/bijay-yadav-b5aa4a38b/)
+* 📸 Instagram: [@bizay047](https://www.instagram.com/bizay047)
 
 ---
 
@@ -143,4 +143,4 @@ If you like this project:
 ## © License
 
 © 2026 Bijay Kumar Yadav
-Made with ❤️ by **Bizay**
+Made with ❤️ by [**Bizay**](yadavbijaykumar.com.np)
