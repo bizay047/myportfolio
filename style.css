@@ -25,6 +25,11 @@ body.dark-mode {
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+/* --- Prevents Mobile Zoom-Out Bugs --- */
+html, body {
+    max-width: 100vw;
+    overflow-x: hidden; /* This is the magic line that stops horizontal scrolling/zooming! */
+}
 
 body { background-color: var(--bg-color); color: var(--text-main); transition: var(--transition); line-height: 1.6; }
 
@@ -68,7 +73,25 @@ body:not(.dark-mode) .nav-logo-img {
     display: flex !important; 
     align-items: center;
     z-index: 100000;
-    margin-right: 1.5rem; /* ⬅️ THIS is the magic line that shifts it left! */
+    margin-right: 1.5rem;
+ } /* ⬅️ THIS is the magic line that shifts it left! */
+    /* Mobile Menu Button Container */
+/* Mobile Menu Button Container (Locks buttons in a row with spacing) */
+.nav-right-controls { 
+    display: flex !important; 
+    flex-direction: row !important; /* Forces them onto the same horizontal line */
+    align-items: center !important; /* Keeps them vertically centered with each other */
+    gap: 1.5rem !important; /* Adds that perfect, attractive space between them */
+}
+
+/* Ensure the buttons themselves don't do anything weird */
+.mobile-btn { 
+    background: none; 
+    border: none; 
+    font-size: 1.5rem; 
+    color: var(--text-main); 
+    cursor: pointer; 
+    display: none; /* Hidden on desktop, shown on mobile via media query */
 }
 /* Magic Trick: Inverts text to white, keeps brackets blue, and removes background in Dark Mode! */
 body.dark-mode .nav-logo-img {
@@ -137,7 +160,7 @@ body.dark-mode .nav-logo-img {
     gap: 2rem; 
 }
 
-/* --- UPDATED Hero Profile Image (Rectangle with Glow) --- */
+/* --- UPDATED Hero Profile Image --- */
 .hero-profile-img { 
     width: auto; 
     height: auto;
@@ -534,104 +557,10 @@ footer .social-links a:hover {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-/* Modal */
-.modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
-.modal-content { max-width: 600px; width: 90%; position: relative; animation: modalFadeIn 0.3s ease; }
-.close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
-.modal-buttons { display: flex; gap: 1rem; margin-top: 2rem; }
-@keyframes modalFadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-
-/* --- MOBILE RESPONSIVE LAYOUT FIXES --- */
-@media (max-width: 768px) {
-    /* Fix Navigation */
-    .nav-container { flex-direction: column; padding: 1rem; gap: 1rem; }
-    .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
-    .nav-links a { font-size: 0.9rem; }
-    .theme-btn { position: absolute; top: 1rem; right: 1.5rem; }
-
-    /* Fix Split Hero Section */
-    .split-hero {
-        flex-direction: column-reverse; /* Puts image above text on mobile */
-        text-align: center;
-        gap: 2rem;
-        padding-top: 2rem;
-    }
-    
-    .hero-text-side {
-        text-align: center;
-    }
-    
-    .hero-text-side .name { font-size: 2.5rem; }
-    .hero-text-side .summary { margin: 0 auto 2rem auto; }
-    .hero-text-side .hero-buttons { 
-        justify-content: center; 
-        flex-direction: column; 
-        max-width: 300px; 
-        margin: 0 auto; 
-    }
-
-    .section { padding: 4rem 1.5rem; }
-    .bg-alt { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
-
-    /* Fix About & Education Logos */
-    .about-container { flex-direction: column; text-align: center; gap: 2rem; }
-    .about-image img { max-width: 250px; }
-    .edu-header { flex-direction: column; align-items: center; text-align: center; }
-
-    /* Fix Grids */
-    .skill-cards-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
-    .mini-skill-card { padding: 1.5rem 0.5rem; }
-    .projects-grid { grid-template-columns: 1fr; } 
-
-    /* Fix Contact & Footer */
-    .contact-container { grid-template-columns: 1fr; gap: 2rem; }
-    footer { padding: 2rem 1rem; }
-}
-/* Fix New Grids for Mobile */
-    .learning-container { grid-template-columns: 1fr; }
-    .certifications-grid { grid-template-columns: 1fr; }
-
-@media (max-width: 400px) {
-    .skill-cards-grid { grid-template-columns: 1fr; }
-}
-
-/* =========================================
-   SCROLL ANIMATIONS & EFFECTS
-   ========================================= */
-
-/* 1. The Fade & Slide Up Effect */
-.reveal {
-    opacity: 0;
-    transform: translateY(40px); /* Starts 40px lower */
-    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); /* Super smooth, premium easing */
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0); /* Slides up to its normal spot */
-}
-
-/* 2. Frosted Glass Navbar on Scroll */
-nav {
-    transition: all 0.26s ease; /* Ensures smooth transition */
-}
-
-nav.scrolled {
-    background-color: rgba(255, 255, 255, 0.85); /* Slightly transparent white */
-    backdrop-filter: blur(12px); /* Creates the Apple-style frosted glass look */
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-}
-
-/* Dark Mode Frosted Glass */
-body.dark-mode nav.scrolled {
-    background-color: rgba(30, 41, 59, 0.85); /* Slightly transparent dark slate */
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-}
 /* --- Custom Image Icon in Footer --- */
 .footer-custom-icon {
-    width: 30px; /* Matches the size of the other social icons */
-    height: 30px;
+    width: 45px; /* Matches the size of the other social icons */
+    height: 45px;
     object-fit: contain; /* Prevents the image from stretching */
     transition: var(--transition);
 }
@@ -639,4 +568,145 @@ body.dark-mode nav.scrolled {
 /* If your custom logo has black text, this makes it glow white in Dark Mode! */
 body.dark-mode .footer-custom-icon {
     filter: invert(1) hue-rotate(180deg) brightness(1.2);
+}
+/* Modal */
+.modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
+.modal-content { max-width: 600px; width: 90%; position: relative; animation: modalFadeIn 0.3s ease; }
+.close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
+.modal-buttons { display: flex; gap: 1rem; margin-top: 2rem; }
+@keyframes modalFadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+
+
+/* --- MOBILE RESPONSIVE LAYOUT FIXES --- */
+/* --- MOBILE RESPONSIVE LAYOUT FIXES --- */
+@media (max-width: 768px) {
+    /* 1. Fix the Navigation Bar Alignment */
+    .nav-container { 
+        flex-direction: row; 
+        justify-content: space-between; /* Pushes Logo to left, Icons to right! */
+        padding: 15px 1.5rem; /* Gives perfect breathing room on the edges */
+        width: 100%;
+    }
+    
+    .nav-right-controls { 
+        display: flex; 
+        align-items: center; 
+        justify-content: flex-end;
+        gap: 1.5rem; 
+    }
+    
+    .mobile-btn { display: flex; align-items: center; justify-content: center; } 
+    
+    .theme-btn { 
+        position: static !important; 
+        margin: 0 !important; 
+        font-size: 1.4rem; 
+    }
+    
+    /* Hide links by default, turn them into a dropdown */
+    .nav-links {
+        display: none; 
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--card-bg);
+        flex-direction: column;
+        padding: 1.5rem 0;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        text-align: center;
+        gap: 1.5rem;
+    }
+    .nav-links.active { display: grid; }
+
+    /* 2. FIX FULL WIDTH & TEXT OVERFLOW */
+    .split-hero { 
+        flex-direction: column !important; 
+        text-align: center !important; 
+        gap: 2rem !important; 
+        padding: 6rem 5% 2rem 5% !important; /* Uses percentages so it fits perfectly on ANY phone size */
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+    }
+    
+    .hero-text-side { 
+        order: 1 !important; 
+        width: 100% !important; 
+        max-width: 100% !important;
+    } 
+    
+    .hero-text-side .name { font-size: 2.2rem !important; }
+    
+    .hero-text-side .typing-text { 
+        height: auto !important; 
+        min-height: 40px !important; 
+        margin-bottom: 1.5rem !important; 
+    }
+    
+    .hero-text-side .summary { margin: 0 auto 1.5rem auto !important; }
+    
+    /* 3. STRICT BUTTON STACKING */
+    .hero-buttons { 
+        display: flex !important;
+        flex-direction: column !important; /* Strictly forces them to stack vertically */
+        gap: 1rem !important; 
+        width: 100% !important;
+        padding: 0 !important;
+        margin-top: 1rem !important;
+    }
+    
+    .hero-buttons .btn {
+        width: 100% !important; /* Stretches buttons across the screen */
+        text-align: center !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    .hero-visual-side { order: 2; margin-top: 1rem; width: 100%; } 
+    .hero-profile-img { 
+        max-width: 340px !important; /* Increased from 250px to make it much bigger */
+        width: 100% !important; /* Ensures it scales perfectly even on tiny iPhone SE screens */
+    }
+
+    /* General Layout Fixes */
+    .section { padding: 4rem 1.5rem; }
+    .bg-alt { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+    .about-container { flex-direction: column; text-align: center; gap: 2rem; }
+    .about-image img { max-width: 250px; }
+    .edu-header { flex-direction: column; align-items: center; text-align: center; }
+    .projects-grid { grid-template-columns: 1fr; } 
+    .contact-container { grid-template-columns: 1fr; gap: 2rem; }
+    footer { padding: 2rem 1rem; }
+
+    /* =========================================
+   MISSING SCROLL ANIMATION EFFECTS
+   ========================================= */
+
+/* 1. The Fade & Slide Up Effect */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px); 
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out; 
+    will-change: opacity, transform; 
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0); 
+}
+
+/* 2. Frosted Glass Navbar on Scroll */
+nav.scrolled {
+    background-color: rgba(255, 255, 255, 0.85) !important; 
+    backdrop-filter: blur(12px) !important; 
+    -webkit-backdrop-filter: blur(12px) !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+}
+
+body.dark-mode nav.scrolled {
+    background-color: rgba(30, 41, 59, 0.85) !important; 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important;
+}
 }
