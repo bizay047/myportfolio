@@ -1,7 +1,7 @@
 # 🚀 Bijay Yadav — AI/ML Portfolio
 
 <p align="center">
-  <img src="bijaymain.png" alt="Portfolio Banner" max-width="45%" />
+  <img src="bijaymain.png" alt="Portfolio Banner" max-width="45%" max-height="45%" />
 </p>
 
 <p align="center">
