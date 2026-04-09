@@ -1,83 +1,146 @@
-# 🚀 Personal AI & ML Portfolio
+# 🚀 Bijay Yadav — AI/ML Portfolio
 
-![Portfolio Banner](bijaymain.png) > A modern, fully responsive, and highly interactive personal portfolio website designed to showcase my journey as an Artificial Intelligence, Machine Learning, and Data Science student at KIIT University.
+<p align="center">
+  <img src="bijaymain.png" alt="Portfolio Banner" width="100%" />
+</p>
 
-**🔗 [View Live Demo](https://yadavbijay.com.np)**
+<p align="center">
+  <b>Artificial Intelligence • Machine Learning • Data Science</b><br>
+  Building intelligent systems with clean design & scalable engineering.
+</p>
+
+<p align="center">
+  🔗 <a href="https://yadavbijay.com.np"><b>Live Portfolio</b></a> • 
+  📧 <a href="mailto:hello@yadavbijay.com.np">Contact Me</a> • 
+  💼 <a href="#">LinkedIn</a> • 
+  📸 <a href="#">Instagram</a>
+</p>
 
 ---
 
-## ✨ Key Features
+## 🧠 About This Project
 
-This portfolio was built from scratch without heavy frameworks, focusing on clean code, performance, and modern UI/UX design principles:
+This is a **fully custom-built personal portfolio** developed using **pure HTML, CSS, and JavaScript**, focused on:
 
-* **🌓 Dark/Light Mode:** Seamless theme switching with user preference saved to `localStorage`.
-* **🕸️ Neural Network Background:** A custom-built, interactive particle animation using the HTML5 `<canvas>` API and vanilla JavaScript. Lines dynamically connect as particles float, changing colors based on the active theme.
-* **⌨️ Typewriter Effect:** A bulletproof, looping text animation highlighting my core roles and skills.
-* **✨ Scroll Reveal Animations:** Utilizes the modern `IntersectionObserver` API to trigger elegant, hardware-accelerated slide-up animations as elements enter the viewport.
-* **🪟 Frosted Glass Navigation:** A permanently fixed sticky navbar that applies an Apple-style background blur (`backdrop-filter`) when scrolling.
-* **📱 Fully Responsive:** Carefully crafted CSS media queries ensure a perfect layout across 4K monitors, laptops, tablets, and mobile devices.
-* **🖼️ Interactive Modals:** Custom pop-up modals for detailed project views without leaving the main page.
-* **✉️ Functional Contact Form:** Integrated with [Formspree](https://formspree.io/) to receive emails directly from the site without needing a backend server.
+* ⚡ Performance (no heavy frameworks)
+* 🎯 Clean UI/UX principles
+* 🧩 Scalable and maintainable code
+* 🧠 Showcasing AI/ML projects effectively
+
+---
+
+## ✨ Features
+
+### 🎨 UI / UX
+
+* 🌓 **Dark / Light Mode** (with localStorage persistence)
+* 🪟 **Frosted Glass Navbar** (backdrop-filter blur)
+* 📱 **Fully Responsive Design** (mobile → 4K optimized)
+
+### ⚙️ Interactivity
+
+* 🕸️ **Neural Network Canvas Animation**
+* ⌨️ **Typewriter Effect (looping roles)**
+* ✨ **Scroll Reveal Animations (IntersectionObserver)**
+* 🖼️ **Project Modals (no page reload)**
+
+### 📩 Backend Integration
+
+* ✉️ **Contact Form via Formspree (serverless)**
 
 ---
 
 ## 🛠️ Tech Stack
 
-**Frontend:**
-* HTML5 (Semantic Structure)
-* CSS3 (Custom Properties/Variables, Flexbox, CSS Grid, Advanced Animations)
-* Vanilla JavaScript (ES6+, DOM Manipulation, Canvas API)
+### 🔹 Frontend
 
-**Design & Assets:**
-* [Devicon](https://devicon.dev/) (Technology Logos)
-* [FontAwesome](https://fontawesome.com/) (UI Icons)
+* HTML5 (Semantic)
+* CSS3 (Flexbox, Grid, Animations, Variables)
+* JavaScript (ES6+, DOM, Canvas API)
+
+### 🔹 Design & Assets
+
+* Devicon (Tech Icons)
+* FontAwesome (UI Icons)
 * Google Fonts (Poppins)
-* SVG Vector Graphics
+* SVG Graphics
 
-**Deployment:**
-* Hosted via **GitHub Pages** / **Cloudflare**
-* Custom Domain Routing (`yadavbijay.com.np`)
+### 🔹 Deployment
+
+* GitHub Pages / Cloudflare
+* Custom Domain: **yadavbijay.com.np**
 
 ---
 
-## 💻 Local Installation & Setup
+## ⚡ Performance Highlights
 
-Since this project is built with pure Vanilla HTML/CSS/JS, no complex build tools or package managers (like npm) are required.
-
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/bizay047/myPortfolio.git](https://github.com/bizay047/myPortfolio.git)
-    ```
-2.  **Navigate to the directory:**
-    ```bash
-    cd myPortfolio
-    ```
-3.  **Run the project:**
-    * Simply double-click the `index.html` file to open it in your default web browser.
-    * *Recommended:* Use the **Live Server** extension in VS Code for live reloading while editing.
+* 🚀 Lightweight (no frameworks)
+* ⚡ Fast load time
+* 🧠 Optimized animations (hardware accelerated)
+* 📉 Minimal JS footprint
 
 ---
 
 ## 📂 Project Structure
 
-```text
+```bash
 📁 myPortfolio/
-├── 📄 index.html      # Main HTML structure and content
-├── 🎨 style.css       # All styling, responsive design, and CSS animations
-├── ⚙️ script.js       # Theme toggle, canvas particles, modals, and scroll observer
-├── 🖼️ bizay-logo.svg  # Scalable vector graphic for the navigation bar
-├── 🖼️ favicon1.png    # Browser tab icon
-├── 📄 bijay_resume.pdf# Downloadable CV
-└── 📁 (Images)        # Various project and profile images (e.g., bijaymain.png, kiit2.png)
+├── 📄 index.html
+├── 🎨 style.css
+├── ⚙️ script.js
+├── 🖼️ bizay-logo.svg
+├── 🖼️ favicon1.png
+├── 📄 bijay_resume.pdf
+└── 📁 assets/
+```
 
+---
 
-📬 Let's Connect
-I am currently a B.Tech student at KIIT University (2023-2027) actively looking for opportunities to apply my skills in Machine Learning, Computer Vision, and Software Engineering.
+## 💻 Local Setup
 
-Email: hello@yadavbijay.com.np
+```bash
+# Clone repo
+git clone https://github.com/bizay047/myPortfolio.git
 
-LinkedIn: Bijay Yadav
+# Enter directory
+cd myPortfolio
 
-Instagram: @bizay047
+# Run
+Open index.html in browser
+```
 
-© 2026 Bijay Kumar Yadav. All rights reserved. Made with ❤️ by Bizay.
+👉 Recommended: Use **VS Code Live Server**
+
+---
+
+## 🎯 What Makes This Portfolio Different?
+
+✔ No frameworks — pure engineering
+✔ Custom canvas-based animation
+✔ Real-world UI/UX design thinking
+✔ Optimized for recruiters + developers
+
+---
+
+## 📬 Let's Connect
+
+* 📧 Email: [hello@yadavbijay.com.np](mailto:hello@yadavbijay.com.np)
+* 💼 LinkedIn: Bijay Yadav
+* 📸 Instagram: @bizay047
+
+---
+
+## ⭐ Support
+
+If you like this project:
+
+👉 Star the repo
+👉 Fork it
+👉 Give feedback
+
+---
+
+## © License
+
+© 2026 Bijay Kumar Yadav
+Made with ❤️ by **Bizay**
