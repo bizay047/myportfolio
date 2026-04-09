@@ -52,18 +52,23 @@
             <a href="#hero" class="logo">
                <img src="bizay-logo.png" alt="Bizay Logo" class="nav-logo-img">
             </a>
-            <ul class="nav-links">
+            
+            <ul class="nav-links" id="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#Certifications">Certifications</a></li>
-
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <button id="theme-toggle" class="theme-btn"><i class="fas fa-moon"></i></button>
+
+            <div class="nav-right-controls">
+                <button id="theme-toggle" class="theme-btn"><i class="fas fa-moon"></i></button>
+                <button id="mobile-menu-btn" class="mobile-btn"><i class="fas fa-bars"></i></button>
+            </div>
         </div>
     </nav>
+    
 
    <header id="hero" class="hero-gradient">
         <div class="hero-content split-hero">
@@ -208,7 +213,9 @@
             </div>
             
             <div class="project-card card reveal" onclick="openModal('Personal AI & ML Portfolio', 'Designed and developed a fully responsive, modern dark/light mode portfolio website to showcase my machine learning projects and computer science background. Features custom JavaScript neural network particle animations, interactive modals, and Cloudflare DNS integration.', 'HTML5, CSS3, JavaScript, Cloudflare', 'https://bizay047.github.io/myPortfolio/', 'https://bizay047.github.io/myPortfolio/')">
-                <div class="project-icon"><i class="fas fa-laptop-code"></i></div>
+                <a href="#hero" title="yadavbijay.com.np">
+                 <img src="favicon.png" alt="Bizay" class="footer-custom-icon">
+                </a>
                 <h3>AI & ML Portfolio</h3>
                 <p>Responsive personal portfolio with custom particle animations and dark/light mode.</p>
                 <span class="learn-more">Learn More <i class="fas fa-arrow-right"></i></span>
